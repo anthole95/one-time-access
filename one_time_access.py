@@ -17,14 +17,22 @@ def index():
         <p>Generated link: <a href="{full_link}">{full_link}</a></p>
         <p><a href="{url_for('index')}"><button>Return</button></a></p>
         '''
-        return response_html
+        response = make_response(response_html)
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     return render_template('index.html')
 
 @app.route('/get/<unique_id>', methods=['GET'])
 def get_text(unique_id):
     if unique_id in text_storage:
         user_text = text_storage.pop(unique_id)
-        return user_text
+        response = make_response(user_text)
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     else:
         abort(404)
 
