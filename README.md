@@ -1,4 +1,4 @@
-# Simple Flask Web App
+# One Time Access
 
 This is a simple Flask web application that allows users to enter text, generate a unique link to access the text, and ensures the link expires after being accessed once.
 
